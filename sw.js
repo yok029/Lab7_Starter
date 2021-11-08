@@ -11,22 +11,19 @@ const urlsToCache= [
   'https://introweb.tech/assets/json/pumpkinPie.json'
 ];
 
-// Once the service worker has been installed, feed it some initial URLs to cache
-// self.addEventListener('install', function (event) {
-//   event.waitUntil(
-//     caches.open(CACHE_NAME).then(function(cache){
-//       console.log('cache opened');
-//       return cache.addAll(urlsToCache);
-
-//     })
-//   );
-//   });
-
-  /**
-   * TODO - Part 2 Step 2
-   * Create a function as outlined above
-   */
-
+ // Once the service worker has been installed, feed it some initial URLs to cache
+/**
+ * TODO - Part 2 Step 2
+ * Create a function as outlined above
+ */
+self.addEventListener('install', function (event) {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then(function(cache){
+      console.log('cache opened');
+      return cache.addAll(urlsToCache);
+    })
+  );
+});
 
 /**
  * Once the service worker 'activates', this makes it so clients loaded
@@ -34,11 +31,11 @@ const urlsToCache= [
  * go through this service worker
  */
 self.addEventListener('activate', function (event) {
-  event.waitUntil(clients.claim());
   /**
    * TODO - Part 2 Step 3
    * Create a function as outlined above, it should be one line
    */
+  event.waitUntil(clients.claim());
 });
 
 // Intercept fetch requests and store them in the cache
@@ -47,4 +44,14 @@ self.addEventListener('fetch', function (event) {
    * TODO - Part 2 Step 4
    * Create a function as outlined above
    */
+  event.respondeWith(
+    caches.match(event.request) 
+    .then(function(response) {
+      if (response){
+        return response;
+      }
+      return fetch(event.request);
+    })
+  );
+
 });

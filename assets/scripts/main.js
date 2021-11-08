@@ -54,14 +54,21 @@ async function init() {
  * of installing it and getting it running
  */
 function initializeServiceWorker() {
-  if('serviceWorker' in navigator)
-  {
-    
-  }
-  /**
+    /**
    *  TODO - Part 2 Step 1
    *  Initialize the service worker set up in sw.js
    */
+  if('serviceWorker' in navigator)
+  {
+      window.addEventListener('load',()=>{
+        navigator.serviceWorker.register('sw.js').then(function(registration) {
+          console.log('ServiceWorker registration successful');
+        }, function(err){
+          console.log('ServiceWorker registration failure: ',err);
+        });
+      }) ;
+  }
+
 }
 
 /**
