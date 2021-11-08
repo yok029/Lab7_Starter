@@ -77,10 +77,10 @@ export class Router {
       return
     }
 
-    let hash = "";
+    let hash = " ";
     if (page !== 'home') {
       hash = '#' + page;
-    } 
+    }
     
     if (!statePopped && window.location.hash !== hash) {
       window.history.pushState({page}, "", hash);

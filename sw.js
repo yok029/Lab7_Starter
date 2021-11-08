@@ -2,14 +2,31 @@
 //         so do not move it next to the other scripts
 
 const CACHE_NAME = 'lab-7-starter';
+const urlsToCache= [
+  'https://introweb.tech/assets/json/ghostCookies.json',
+  'https://introweb.tech/assets/json/birthdayCake.json',
+  'https://introweb.tech/assets/json/chocolateChip.json',
+  'https://introweb.tech/assets/json/stuffing.json',
+  'https://introweb.tech/assets/json/turkey.json',
+  'https://introweb.tech/assets/json/pumpkinPie.json'
+];
 
 // Once the service worker has been installed, feed it some initial URLs to cache
-self.addEventListener('install', function (event) {
+// self.addEventListener('install', function (event) {
+//   event.waitUntil(
+//     caches.open(CACHE_NAME).then(function(cache){
+//       console.log('cache opened');
+//       return cache.addAll(urlsToCache);
+
+//     })
+//   );
+//   });
+
   /**
    * TODO - Part 2 Step 2
    * Create a function as outlined above
    */
-});
+
 
 /**
  * Once the service worker 'activates', this makes it so clients loaded
@@ -17,6 +34,7 @@ self.addEventListener('install', function (event) {
  * go through this service worker
  */
 self.addEventListener('activate', function (event) {
+  event.waitUntil(clients.claim());
   /**
    * TODO - Part 2 Step 3
    * Create a function as outlined above, it should be one line
